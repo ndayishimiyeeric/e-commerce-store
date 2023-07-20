@@ -3,18 +3,21 @@
 import React, {useState} from "react";
 import {useMutation} from "@tanstack/react-query";
 import {useParams, useRouter} from "next/navigation";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import axios, {AxiosError} from "axios";
+import toast from "react-hot-toast";
+import {Trash} from "lucide-react";
 import {Store} from "@prisma/client";
 import Heading from "@/components/ui/Heading";
 import {Button} from "@/components/ui/Button";
-import {Trash} from "lucide-react";
 import {Separator} from "@/components/ui/Separator";
-import {useForm} from "react-hook-form";
 import {CreateStoreFormScheme, CreateStoreFormType} from "@/lib/validators/store-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/Form";
 import {Input} from "@/components/ui/Input";
-import axios, {AxiosError} from "axios";
-import toast from "react-hot-toast";
+import AlertModal from "@/components/modals/alert-modal";
+import ApiAlert from "@/components/ui/ApiAlert";
+import {useOrigin} from "@/hooks/use-origin";
 
 interface SettingsFormProps {
     store: Store;
@@ -22,6 +25,7 @@ interface SettingsFormProps {
 const SettingsForm = ({store}: SettingsFormProps) => {
     const params = useParams();
     const router = useRouter();
+    const origin = useOrigin();
     const [open, setOpen] = useState<boolean>(false);
     const form = useForm<CreateStoreFormType>({
         resolver: zodResolver(CreateStoreFormScheme),
@@ -30,7 +34,7 @@ const SettingsForm = ({store}: SettingsFormProps) => {
 
     const {mutate: UpdateStore, isLoading: UpdateIsLoading} = useMutation({
         mutationFn: async (payload: CreateStoreFormType) => {
-            const {data} = await axios.patch(`/api/stores/${store.id}`, payload)
+            const {data} = await axios.patch(`/api/stores/${params.storeId}`, payload)
             return data;
         },
         onError: (err) => {
@@ -56,18 +60,45 @@ const SettingsForm = ({store}: SettingsFormProps) => {
         },
     })
 
+    const {mutate: DeleteStore, isLoading: DeleteStoreLoading} = useMutation({
+        mutationFn: async () => {
+            const {data} = await axios.delete(`/api/stores/${params.storeId}`)
+            return data;
+        },
+        onError: (err) => {
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 404) {
+                    return toast.error('Store not found');
+                }
+
+                if (err.response?.status === 401) {
+                    return toast.error('Unauthorized');
+                }
+            }
+
+            return toast.error('Make sure you deleted all products and categories');
+        },
+        onSuccess: () => {
+            router.push('/');
+            router.refresh();
+            toast.success('Store deleted')
+        },
+    })
+
     const onSubmit = async (payload: CreateStoreFormType) => {
         await UpdateStore(payload);
     };
 
     return (
         <>
+            <AlertModal isOpen={open} onClose={() => setOpen(false)} onConfirm={DeleteStore} loading={UpdateIsLoading || DeleteStoreLoading}/>
             <div className="flex items-center justify-between">
                 <Heading title="Settings" description="Manage store preferences"/>
 
                 <Button
                     variant="destructive"
-                    disabled={UpdateIsLoading}
+                    disabled={UpdateIsLoading || DeleteStoreLoading}
+                    isLoading={DeleteStoreLoading}
                     size="sm"
                     onClick={() => {setOpen(true)}}
                     className="bg-red-600"
@@ -102,11 +133,15 @@ const SettingsForm = ({store}: SettingsFormProps) => {
                     <Button
                         type="submit"
                         className="ml-auto"
-                        disabled={UpdateIsLoading}
+                        disabled={UpdateIsLoading || DeleteStoreLoading}
                         isLoading={UpdateIsLoading}
                     >Save changes</Button>
                 </form>
             </Form>
+
+            <Separator />
+
+            <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public" />
         </>
     )
 };

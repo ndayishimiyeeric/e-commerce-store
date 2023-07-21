@@ -16,8 +16,6 @@ import {BillboardFormSchema, BillboardFormSchemaType} from "@/lib/validators/bil
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/Form";
 import {Input} from "@/components/ui/Input";
 import AlertModal from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/ApiAlert";
-import {useOrigin} from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/ImageUpload";
 
 interface BillboardFormProps {
@@ -26,7 +24,6 @@ interface BillboardFormProps {
 const BillboardForm = ({billboard}: BillboardFormProps) => {
     const params = useParams();
     const router = useRouter();
-    const origin = useOrigin();
 
     const [open, setOpen] = useState<boolean>(false);
 

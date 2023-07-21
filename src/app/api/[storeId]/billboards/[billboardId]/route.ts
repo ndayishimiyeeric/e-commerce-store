@@ -135,7 +135,7 @@ export async function GET(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store Not found", {status: 404})
         }
 
         const billboardExists = await db.billboard.findUnique({
@@ -145,10 +145,10 @@ export async function GET(
         })
 
         if (!billboardExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Billboard Not found", {status: 404})
         }
 
-        const billboard = await db.billboard.deleteMany({
+        const billboard = await db.billboard.findFirst({
             where: {
                 id: params.billboardId,
                 storeId: params.storeId,

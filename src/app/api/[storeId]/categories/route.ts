@@ -19,7 +19,7 @@ export async function POST(
         }
 
         if (!name || !billboardId) {
-            return new Response("Bad Request Both label and image are required", {status: 400})
+            return new Response("Bad Request Both name and billboard id are required", {status: 400})
         }
 
         if (!params.storeId) {
@@ -34,7 +34,7 @@ export async function POST(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const category = await db.category.create({
@@ -50,7 +50,7 @@ export async function POST(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not create category at this time", {status: 500})
+        return new Response("Internal server error, can not create category at this time", {status: 500})
     }
 }
 
@@ -83,6 +83,6 @@ export async function GET(
 
         return NextResponse.json(categories, {status: 201})
     } catch (error) {
-        return new Response("Can not get Categories at this time", {status: 500})
+        return new Response("Internal server error, can not get Categories at this time", {status: 500})
     }
 }

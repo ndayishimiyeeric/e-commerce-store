@@ -23,7 +23,7 @@ export async function PATCH(
         }
 
         if (!params.billboardId) {
-            return new Response("Bad Request Billboard is required", {status: 400})
+            return new Response("Bad Request billboard id is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -34,7 +34,7 @@ export async function PATCH(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const billboardExists = await db.billboard.findFirst({
@@ -45,7 +45,7 @@ export async function PATCH(
         })
 
         if (!billboardExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No billboard found", {status: 404})
         }
 
         const billboard = await db.billboard.updateMany({
@@ -63,7 +63,7 @@ export async function PATCH(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not create billboard at this time", {status: 500})
+        return new Response("Internal server error, can not create billboard at this time", {status: 500})
     }
 }
 
@@ -80,7 +80,7 @@ export async function DELETE(
         }
 
         if (!params.billboardId) {
-            return new Response("Bad Request Billboard is required", {status: 400})
+            return new Response("Bad Request billboard Id is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -91,7 +91,7 @@ export async function DELETE(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const billboardExists = await db.billboard.findFirst({
@@ -102,7 +102,7 @@ export async function DELETE(
         })
 
         if (!billboardExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No Billboard found", {status: 404})
         }
 
         const billboard = await db.billboard.deleteMany({
@@ -114,7 +114,7 @@ export async function DELETE(
 
         return NextResponse.json(billboard, {status: 201})
     } catch (error) {
-        return new Response("Can not create billboard at this time", {status: 500})
+        return new Response("Internal server error, can not create billboard at this time", {status: 500})
     }
 }
 
@@ -138,16 +138,6 @@ export async function GET(
             return new Response("Store Not found", {status: 404})
         }
 
-        const billboardExists = await db.billboard.findUnique({
-            where: {
-                id: params.billboardId,
-            },
-        })
-
-        if (!billboardExists) {
-            return new Response("Billboard Not found", {status: 404})
-        }
-
         const billboard = await db.billboard.findFirst({
             where: {
                 id: params.billboardId,
@@ -157,6 +147,6 @@ export async function GET(
 
         return NextResponse.json(billboard, {status: 201})
     } catch (error) {
-        return new Response("Can not create billboard at this time", {status: 500})
+        return new Response("Internal server error, can not get billboard at this time", {status: 500})
     }
 }

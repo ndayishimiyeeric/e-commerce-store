@@ -19,11 +19,11 @@ export async function PATCH(
         }
 
         if (!name || !billboardId) {
-            return new Response("Bad Request Both label and image are required", {status: 400})
+            return new Response("Bad Request Both name and billboard id are required", {status: 400})
         }
 
         if (!params.categoryId) {
-            return new Response("categoryId is required", {status: 400})
+            return new Response("category Id is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -34,7 +34,7 @@ export async function PATCH(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const categoryExists = await db.category.findFirst({
@@ -45,7 +45,7 @@ export async function PATCH(
         })
 
         if (!categoryExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No category found", {status: 404})
         }
 
         const category = await db.category.updateMany({
@@ -63,7 +63,7 @@ export async function PATCH(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not update category at this time", {status: 500})
+        return new Response("Internal server error, can not update category at this time", {status: 500})
     }
 }
 
@@ -91,7 +91,7 @@ export async function DELETE(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const categoryExists = await db.category.findFirst({
@@ -102,7 +102,7 @@ export async function DELETE(
         })
 
         if (!categoryExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No category found", {status: 404})
         }
 
         const category = await db.category.deleteMany({
@@ -114,7 +114,7 @@ export async function DELETE(
 
         return NextResponse.json(category, {status: 201})
     } catch (error) {
-        return new Response("Can not delete category at this time", {status: 500})
+        return new Response("Internal server error, can not delete category at this time", {status: 500})
     }
 }
 
@@ -138,16 +138,6 @@ export async function GET(
             return new Response("Store Not found", {status: 404})
         }
 
-        const categoryExists = await db.category.findUnique({
-            where: {
-                id: params.categoryId,
-            },
-        })
-
-        if (!categoryExists) {
-            return new Response("Category Not found", {status: 404})
-        }
-
         const category = await db.category.findFirst({
             where: {
                 id: params.categoryId,
@@ -157,6 +147,6 @@ export async function GET(
 
         return NextResponse.json(category, {status: 201})
     } catch (error) {
-        return new Response("Can not get category at this time", {status: 500})
+        return new Response("Internal server error, can not get category at this time", {status: 500})
     }
 }

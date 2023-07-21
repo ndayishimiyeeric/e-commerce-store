@@ -23,7 +23,7 @@ export async function POST(
         }
 
         if (!params.storeId) {
-            return new Response("Bad Request storeId is required", {status: 400})
+            return new Response("Bad Request store Id is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -34,7 +34,7 @@ export async function POST(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store Not Found", {status: 404})
         }
 
         const billboard = await db.billboard.create({
@@ -50,7 +50,7 @@ export async function POST(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not create billboard at this time", {status: 500})
+        return new Response("Internal server error, can not create billboard at this time, try again later", {status: 500})
     }
 }
 
@@ -83,6 +83,6 @@ export async function GET(
 
         return NextResponse.json(billboards, {status: 201})
     } catch (error) {
-        return new Response("Can not get billboards at this time", {status: 500})
+        return new Response("Internal server error, can not get billboards at this time, try again later", {status: 500})
     }
 }

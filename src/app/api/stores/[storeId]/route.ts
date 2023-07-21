@@ -53,7 +53,7 @@ export async function PATCH(
         if (error instanceof z.ZodError) {
             return new NextResponse(error.message, {status: 422})
         }
-        return new NextResponse("Internal Server Error", {status: 500});
+        return new NextResponse("Internal Server Error, can not update store at this time try again later", {status: 500});
     }
 }
 
@@ -96,6 +96,6 @@ export async function DELETE(
         if (error instanceof z.ZodError) {
             return new NextResponse(error.message, {status: 422})
         }
-        return new NextResponse("Internal Server Error", {status: 500});
+        return new NextResponse("Internal Server Error, can not delete store at this time try again later", {status: 500});
     }
 }

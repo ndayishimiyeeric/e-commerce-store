@@ -34,7 +34,7 @@ export async function PATCH(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store does not exist", {status: 404})
         }
 
         const colorExists = await db.color.findFirst({
@@ -45,7 +45,7 @@ export async function PATCH(
         })
 
         if (!colorExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Color does not exist", {status: 404})
         }
 
         const color = await db.color.updateMany({
@@ -63,7 +63,7 @@ export async function PATCH(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not update color at this time", {status: 500})
+        return new Response("Internal server error, can not update color at this time", {status: 500})
     }
 }
 
@@ -91,7 +91,7 @@ export async function DELETE(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("No store found", {status: 404})
         }
 
         const colorExists = await db.color.findFirst({
@@ -114,7 +114,7 @@ export async function DELETE(
 
         return NextResponse.json(color, {status: 201})
     } catch (error) {
-        return new Response("Can not delete color at this time", {status: 500})
+        return new Response("Internal server error, can not delete color at this time", {status: 500})
     }
 }
 
@@ -147,6 +147,6 @@ export async function GET(
 
         return NextResponse.json(color, {status: 201})
     } catch (error) {
-        return new Response("Can not get color at this time", {status: 500})
+        return new Response("Internal server error, can not get color at this time", {status: 500})
     }
 }

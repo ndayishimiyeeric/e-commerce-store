@@ -23,7 +23,7 @@ export async function POST(
         }
 
         if (!params.storeId) {
-            return new Response("StoreId is required", {status: 400})
+            return new Response("Store Id is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -34,7 +34,7 @@ export async function POST(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store does not exist", {status: 404})
         }
 
         const size = await db.size.create({
@@ -50,7 +50,7 @@ export async function POST(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not create size at this time", {status: 500})
+        return new Response("Internal server error, can not create size at this time", {status: 500})
     }
 }
 
@@ -72,7 +72,7 @@ export async function GET(
         })
 
         if (!storeExists) {
-            return new Response("No store found", {status: 404})
+            return new Response("Store does not exist", {status: 404})
         }
 
         const sizes = await db.size.findMany({
@@ -83,6 +83,6 @@ export async function GET(
 
         return NextResponse.json(sizes, {status: 201})
     } catch (error) {
-        return new Response("Can not get sizes at this time", {status: 500})
+        return new Response("Internal server error, can not get sizes at this time", {status: 500})
     }
 }

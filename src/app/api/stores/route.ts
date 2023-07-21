@@ -16,7 +16,7 @@ export async function POST(req: Request) {
         }
 
         if (!name) {
-            return new NextResponse("Invalid Request", {status: 400})
+            return new NextResponse("Invalid Request name is required", {status: 400})
         }
 
         const storeExists = await db.store.findFirst({
@@ -42,6 +42,6 @@ export async function POST(req: Request) {
         if (error instanceof z.ZodError) {
             return new NextResponse(error.message, {status: 422})
         }
-        return new NextResponse("Internal Server Error", {status: 500})
+        return new NextResponse("Internal Server Error, can not create store at this time", {status: 500})
     }
 }

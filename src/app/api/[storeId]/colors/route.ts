@@ -50,7 +50,7 @@ export async function POST(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not create color at this time", {status: 500})
+        return new Response("internal server error, can not create color at this time", {status: 500})
     }
 }
 
@@ -83,6 +83,6 @@ export async function GET(
 
         return NextResponse.json(colors, {status: 201})
     } catch (error) {
-        return new Response("Can not get colors at this time", {status: 500})
+        return new Response("internal server error, can not get colors at this time", {status: 500})
     }
 }

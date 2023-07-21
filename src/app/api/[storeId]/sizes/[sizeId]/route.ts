@@ -34,7 +34,7 @@ export async function PATCH(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store does not exist", {status: 404})
         }
 
         const sizeExists = await db.size.findFirst({
@@ -45,7 +45,7 @@ export async function PATCH(
         })
 
         if (!sizeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Size does not exist", {status: 404})
         }
 
         const size = await db.size.updateMany({
@@ -63,7 +63,7 @@ export async function PATCH(
         if (error instanceof z.ZodError) {
             return new NextResponse('Invalid data passed', {status: 422})
         }
-        return new Response("Can not update size at this time", {status: 500})
+        return new Response("Internal server error, can not update size at this time", {status: 500})
     }
 }
 
@@ -91,7 +91,7 @@ export async function DELETE(
         })
 
         if (!storeExists) {
-            return new Response("Unauthorized", {status: 404})
+            return new Response("Store does not exist", {status: 404})
         }
 
         const sizeExists = await db.size.findFirst({
@@ -102,7 +102,7 @@ export async function DELETE(
         })
 
         if (!sizeExists) {
-            return new Response("Size Not Found", {status: 404})
+            return new Response("Size does not exist", {status: 404})
         }
 
         const size = await db.size.deleteMany({
@@ -114,7 +114,7 @@ export async function DELETE(
 
         return NextResponse.json(size, {status: 201})
     } catch (error) {
-        return new Response("Can not delete size at this time", {status: 500})
+        return new Response("Internal server error, can not delete size at this time", {status: 500})
     }
 }
 
@@ -138,16 +138,6 @@ export async function GET(
             return new Response("Store Not found", {status: 404})
         }
 
-        const sizeExists = await db.size.findUnique({
-            where: {
-                id: params.sizeId,
-            },
-        })
-
-        if (!sizeExists) {
-            return new Response("Size Not found", {status: 404})
-        }
-
         const size = await db.size.findFirst({
             where: {
                 id: params.sizeId,
@@ -157,6 +147,6 @@ export async function GET(
 
         return NextResponse.json(size, {status: 201})
     } catch (error) {
-        return new Response("Can not get size at this time", {status: 500})
+        return new Response("Internal server error, can not get size at this time", {status: 500})
     }
 }

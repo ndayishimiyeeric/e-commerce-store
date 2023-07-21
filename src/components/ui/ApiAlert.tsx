@@ -25,7 +25,7 @@ const variantMap: Record<ApiAlertProps["variant"], BadgeProps["variant"]> = {
 
 const ApiAlert: React.FC<ApiAlertProps> = ({title, description, variant = "public"}) => {
     return (
-        <Alert>
+        <Alert className="mt-2">
             <div className="flex items-center space-x-2">
                 <Server className="h-4 w-4" />
                 <AlertTitle className="flex items-center gap-x-2">

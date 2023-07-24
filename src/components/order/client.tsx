@@ -13,7 +13,7 @@ interface OrderClientProps {
 const OrderClient = ({orders}: OrderClientProps) => {
 
   return (
-    <>
+    <div>
       <Heading
         title={`Orders (${orders.length})`}
         description="Manage Orders for your store."
@@ -21,7 +21,7 @@ const OrderClient = ({orders}: OrderClientProps) => {
       <Separator className="mt-2" />
 
       <DataTable columns={columns} data={orders} searchKey='products' searchTerm="products"/>
-    </>
+    </div>
   )
 }
 

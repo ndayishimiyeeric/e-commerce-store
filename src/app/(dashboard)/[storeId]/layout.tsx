@@ -28,10 +28,13 @@ export default async function DashboardLayout(
     }
 
     return (
-        <>
+        <div>
+            {/*@ts-ignore*/}
             <Navbar/>
-            {children}
-        </>
+            <div className="container mx-auto pb-14">
+              {children}
+            </div>
+        </div>
 
     )
 }

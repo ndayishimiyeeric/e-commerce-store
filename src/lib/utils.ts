@@ -10,3 +10,8 @@ export const onCopy = (text: string, notification?: string) => {
   navigator.clipboard.writeText(text).then(r => r);
   toast.success(notification || "Copied");
 }
+
+export const priceFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+})

@@ -19,8 +19,8 @@ const BillboardClient = ({billboards}: BillboardClientProps) => {
   const params = useParams();
 
   return (
-    <>
-      <div className="flex items-center justify-between pl-4">
+    <div>
+      <div className="flex items-center justify-between">
         <Heading
           title={`Billboards (${billboards.length})`}
           description="Manage billboards for your store."
@@ -42,7 +42,7 @@ const BillboardClient = ({billboards}: BillboardClientProps) => {
         <Separator className="mt-2" />
 
         <ApiList entityName="billboards" entityId="billboardId" />
-    </>
+    </div>
   )
 }
 

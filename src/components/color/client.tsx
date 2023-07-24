@@ -19,8 +19,8 @@ const ColorClient = ({colors}: ColorClientProps) => {
   const params = useParams();
 
   return (
-    <>
-      <div className="flex items-center justify-between pl-4">
+    <div>
+      <div className="flex items-center justify-between">
         <Heading
           title={`Colors (${colors.length})`}
           description="Manage Colors for your store."
@@ -42,7 +42,7 @@ const ColorClient = ({colors}: ColorClientProps) => {
         <Separator className="mt-2" />
 
         <ApiList entityName="colors" entityId="colorId" />
-    </>
+    </div>
   )
 }
 

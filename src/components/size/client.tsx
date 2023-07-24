@@ -19,8 +19,8 @@ const SizeClient = ({sizes}: SizeClientProps) => {
   const params = useParams();
 
   return (
-    <>
-      <div className="flex items-center justify-between pl-4">
+    <div>
+      <div className="flex items-center justify-between">
         <Heading
           title={`Sizes (${sizes.length})`}
           description="Manage Sizes for your store."
@@ -42,7 +42,7 @@ const SizeClient = ({sizes}: SizeClientProps) => {
         <Separator className="mt-2" />
 
         <ApiList entityName="sizes" entityId="sizeId" />
-    </>
+    </div>
   )
 }
 

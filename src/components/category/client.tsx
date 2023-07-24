@@ -19,8 +19,8 @@ const CategoryClient = ({categories}: CategoryClientProps) => {
   const params = useParams();
 
   return (
-    <>
-      <div className="flex items-center justify-between pl-4">
+    <div>
+      <div className="flex items-center justify-between">
         <Heading
           title={`Categories (${categories.length})`}
           description="Manage categories for your store."
@@ -42,7 +42,7 @@ const CategoryClient = ({categories}: CategoryClientProps) => {
         <Separator className="mt-2" />
 
         <ApiList entityName="categories" entityId="categoryId" />
-    </>
+    </div>
   )
 }
 

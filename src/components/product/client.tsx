@@ -19,8 +19,8 @@ const ProductClient = ({products}: ProductClientProps) => {
   const params = useParams();
 
   return (
-    <>
-      <div className="flex items-center justify-between pl-4">
+    <div>
+      <div className="flex items-center justify-between">
         <Heading
           title={`Products (${products.length})`}
           description="Manage products for your store."
@@ -42,7 +42,7 @@ const ProductClient = ({products}: ProductClientProps) => {
         <Separator className="mt-2" />
 
         <ApiList entityName="products" entityId="productId" />
-    </>
+    </div>
   )
 }
 

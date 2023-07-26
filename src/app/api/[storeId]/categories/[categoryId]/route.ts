@@ -143,6 +143,9 @@ export async function GET(
                 id: params.categoryId,
                 storeId: params.storeId,
             },
+            include: {
+                billboard: true,
+            }
         })
 
         return NextResponse.json(category, {status: 201})

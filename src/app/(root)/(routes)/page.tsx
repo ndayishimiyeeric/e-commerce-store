@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useStoreModal} from "@/hooks/use-store-modal";
 
 export default function Home() {

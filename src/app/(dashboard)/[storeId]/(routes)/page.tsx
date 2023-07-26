@@ -1,5 +1,4 @@
 import React from 'react';
-import {db} from "@/lib/db";
 import Heading from "@/components/ui/Heading";
 import {Separator} from "@/components/ui/Separator";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/Card";

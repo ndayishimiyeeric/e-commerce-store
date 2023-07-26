@@ -1,5 +1,4 @@
 import {Skeleton} from "@/components/ui/Skeleton";
-import Heading from "@/components/ui/Heading";
 import React from "react";
 import {Separator} from "@/components/ui/Separator";
 

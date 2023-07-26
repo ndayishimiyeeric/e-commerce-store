@@ -60,6 +60,7 @@ const MainNav = (
     return (
         <nav
             className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+            {...props}
         >
             {routes.map((route, index) => (
                 <Link

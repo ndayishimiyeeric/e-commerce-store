@@ -6,7 +6,6 @@ import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import {ModeToggle} from "@/components/ui/ModeToggle";
 
-interface NavbarProps {}
 
 const Navbar = async () => {
     const {userId} = auth();

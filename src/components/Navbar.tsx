@@ -4,6 +4,7 @@ import MainNav from "@/components/MainNav";
 import StoreSwitcher from "@/components/StoreSwitcher";
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
+import {ModeToggle} from "@/components/ui/ModeToggle";
 
 interface NavbarProps {}
 
@@ -23,6 +24,7 @@ const Navbar = async () => {
                 <StoreSwitcher items={stores} />
                 <MainNav className="mx-6"/>
                 <div className="ml-auto flex items-center space-x-4">
+                    <ModeToggle/>
                     <UserButton afterSignOutUrl="/"/>
                 </div>
             </div>

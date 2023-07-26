@@ -4,6 +4,9 @@ import OrderClient from "@/components/order/client";
 import {OrderColumn} from "@/types/order-column";
 import {priceFormatter} from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 const OrdersPage = async ({params}:{params: {storeId: string}}) => {
     const orders = await db.order.findMany({
         where: {

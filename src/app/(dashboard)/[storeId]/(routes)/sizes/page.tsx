@@ -3,6 +3,9 @@ import {db} from "@/lib/db";
 import SizeClient from "@/components/size/client";
 import {SizeColumn} from "@/types/size-column";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 const SizesPage = async ({params}:{params: {storeId: string}}) => {
     const sizes = await db.size.findMany({
         where: {

@@ -4,6 +4,9 @@ import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import SettingsForm from "@/components/SettingsForm";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 interface SettingsPageProps {
     params: { storeId: string };
 }

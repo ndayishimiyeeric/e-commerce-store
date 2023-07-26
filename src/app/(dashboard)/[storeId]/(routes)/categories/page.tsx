@@ -3,6 +3,9 @@ import {db} from "@/lib/db";
 import {CategoryColumn} from "@/types/category-column";
 import CategoryClient from "@/components/category/client";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 const CategoriesPage = async ({params}:{params: {storeId: string}}) => {
     const categories = await db.category.findMany({
         where: {

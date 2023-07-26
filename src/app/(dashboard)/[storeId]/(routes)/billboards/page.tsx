@@ -3,6 +3,8 @@ import {db} from "@/lib/db";
 import BillboardClient from "@/components/billboard/client";
 import {BillboardColumn} from "@/types/billboard-column";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 const BillboardsPage = async ({params}:{params: {storeId: string}}) => {
     const billboards = await db.billboard.findMany({
         where: {

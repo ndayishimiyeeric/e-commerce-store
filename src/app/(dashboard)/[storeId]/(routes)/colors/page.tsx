@@ -3,6 +3,9 @@ import {db} from "@/lib/db";
 import ColorClient from "@/components/color/client";
 import {ColorColumn} from "@/types/color-column";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 const ColorsPage = async ({params}:{params: {storeId: string}}) => {
     const colors = await db.color.findMany({
         where: {

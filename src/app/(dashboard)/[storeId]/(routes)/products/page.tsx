@@ -4,6 +4,9 @@ import ProductClient from "@/components/product/client";
 import {ProductColumn} from "@/types/product-column";
 import {priceFormatter} from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 const ProductsPage = async ({params}:{params: {storeId: string}}) => {
     const products = await db.product.findMany({
         where: {

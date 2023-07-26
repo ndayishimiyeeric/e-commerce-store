@@ -28,7 +28,7 @@ export async function POST(req: Request) {
         address?.country,
     ]
 
-    const addressString = addressComponents.filter((item) => item === null).join(", ")
+    const addressString = addressComponents.filter((item) => item !== null).join(", ")
 
     if (event.type === "checkout.session.completed") {
         await db.order.update({

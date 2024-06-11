@@ -1,72 +1,85 @@
-"use client"
+"use client";
 
-import {useEffect, useState} from "react";
-import {CldUploadWidget} from "next-cloudinary";
+import { useEffect, useState } from "react";
+import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import {ImagePlus, Trash} from "lucide-react";
-import {Button} from "@/components/ui/Button";
+import { ImagePlus, Trash } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 interface ImageUploadProps {
-    disabled?: boolean;
-    onChange: (value: string) => void;
-    onRemove: (value: string) => void;
-    value: string[];
+  disabled?: boolean;
+  onChange: (value: string) => void;
+  onRemove: (value: string) => void;
+  value: string[];
 }
-const ImageUpload = ({disabled, onChange, onRemove, value}: ImageUploadProps) => {
-    const [isMounted, setIsMounted] = useState<boolean>(false);
+const ImageUpload = ({
+  disabled,
+  onChange,
+  onRemove,
+  value,
+}: ImageUploadProps) => {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    const onUpload = (result: any) => {
-        onChange(result.info.secure_url);
-    }
+  const onUpload = (result: any) => {
+    onChange(result.info.secure_url);
+  };
 
-    if (!isMounted) return null;
+  if (!isMounted) return null;
 
-    return (
-        <div>
-            <div className="mb-4 flex items-center gap-4">
-                {value.map((url, index) => (
-                    <div key={index} className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
-                        <div className="z-10 absolute top-2 right-2">
-                            <Button
-                                type="button"
-                                onClick={() => onRemove(url)}
-                                variant="destructive"
-                                size="sm"
-                            >
-                                <Trash className="h-4 w-4"/>
-                            </Button>
-                        </div>
-
-                        <Image src={url} alt="billboard image" fill={true} className="object-cover" />
-                    </div>
-                ))}
+  return (
+    <div>
+      <div className="mb-4 flex items-center gap-4">
+        {value.map((url, index) => (
+          <div
+            key={index}
+            className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
+          >
+            <div className="z-10 absolute top-2 right-2">
+              <Button
+                type="button"
+                onClick={() => onRemove(url)}
+                variant="destructive"
+                size="sm"
+              >
+                <Trash className="h-4 w-4" />
+              </Button>
             </div>
 
-            <CldUploadWidget onUpload={onUpload} uploadPreset="h36fsl16">
-                {({open}) => {
-                    const onClick = () => {
-                        open();
-                    }
+            <Image
+              src={url}
+              alt="billboard image"
+              fill={true}
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
 
-                    return (
-                        <Button
-                            type="button"
-                            disabled={disabled}
-                            variant="secondary"
-                            onClick={onClick}
-                        >
-                            <ImagePlus className="h-4 w-4 mr-2"/>
-                            Upload an image
-                        </Button>
-                    )
-                }}
-            </CldUploadWidget>
-        </div>
-    )
-}
+      <CldUploadWidget onUpload={onUpload} uploadPreset="h36fsl16">
+        {({ open }) => {
+          const onClick = () => {
+            open();
+          };
+
+          return (
+            <Button
+              type="button"
+              disabled={disabled}
+              variant="secondary"
+              onClick={onClick}
+            >
+              <ImagePlus className="h-4 w-4 mr-2" />
+              Upload an image
+            </Button>
+          );
+        }}
+      </CldUploadWidget>
+    </div>
+  );
+};
 
 export default ImageUpload;

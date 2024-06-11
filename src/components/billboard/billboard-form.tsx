@@ -142,7 +142,7 @@ const BillboardForm = ({ billboard }: BillboardFormProps) => {
           <Button
             variant="destructive"
             disabled={CreateUpdateBillboardIsLoading || DeleteBIllboardLoading}
-            size="sm"
+            size="icon"
             onClick={() => {
               setOpen(true);
             }}

@@ -134,7 +134,7 @@ const SizeForm = ({ size }: SizeFormProps) => {
           <Button
             variant="destructive"
             disabled={CreateUpdateLoading || DeleteLoading}
-            size="sm"
+            size="icon"
             onClick={() => {
               setOpen(true);
             }}

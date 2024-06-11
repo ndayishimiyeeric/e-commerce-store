@@ -116,7 +116,7 @@ const SettingsForm = ({ store }: SettingsFormProps) => {
         <Button
           variant="destructive"
           disabled={UpdateIsLoading || DeleteStoreLoading}
-          size="sm"
+          size="icon"
           onClick={() => {
             setOpen(true);
           }}

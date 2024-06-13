@@ -24,7 +24,7 @@ export default function Icon() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_15_2)">
+          <g clipPath="url(#clip0_15_2)">
             <rect width="32" height="32" rx="16" fill="white" />
             <path
               d="M-19 4C-19 -9.25484 -8.25483 -20 5 -20H27C40.2548 -20 51 -9.25483 51 4V26C51 39.2548 40.2548 50 27 50H5C-8.25484 50 -19 39.2548 -19 26V4Z"

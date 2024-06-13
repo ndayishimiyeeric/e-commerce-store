@@ -23,10 +23,16 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
 
   if (!store) return redirect("/");
 
+  const allowedOrigins = await db.allowedOrigin.findMany({
+    where: {
+      storeId: store.id,
+    },
+  });
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <SettingsForm store={store} />
+        <SettingsForm store={store} allowedOrigins={allowedOrigins} />
       </div>
     </div>
   );

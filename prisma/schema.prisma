@@ -21,6 +21,7 @@ model Store {
   colors     Color[]     @relation("StoreToColor")
   products   Product[]   @relation("StoreToProduct")
   orders     Order[]     @relation("StoreToOrder")
+  origins    AllowedOrigin[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }
@@ -141,4 +142,15 @@ model OderItem {
 
   @@index([orderId])
   @@index([productId])
+}
+
+model AllowedOrigin {
+  id        String   @id @default(uuid())
+  origin    String
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }
